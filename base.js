@@ -4,7 +4,7 @@ const fs = require('fs')
 const _ = require('lodash')
 const async = require('async')
 
-class Base0 {
+class Base {
   constructor (conf, ctx) {
     this.conf = conf
     this.ctx = ctx
@@ -72,12 +72,12 @@ class Base0 {
   }
 
   addFac (type, name, ns, label, opts, prio, cb) {
-    opts.label = label
-    opts.root = this.ctx.root
-
     if (_.isFunction(opts)) {
       opts = opts()
     }
+    
+    opts.label = label
+    opts.root = this.ctx.root
 
     const fac = this.facility(type, name, ns, opts)
 
@@ -201,4 +201,4 @@ class Base0 {
   }
 }
 
-module.exports = Base0
+module.exports = Base
