@@ -1,7 +1,7 @@
 'use strict'
 
 const async = require('async')
-const Base = require('./../../../workers/base.js')
+const Base = require('./base.js')
 
 class WrkApi extends Base {
   init () {
