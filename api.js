@@ -11,7 +11,7 @@ class WrkApi extends Base {
       ['fac', 'grc', 'p0', 'bfx', () => {
         return this.getGrcConf()
       }],
-      ['fac', 'api', 'bfx', 'bfx', () => {
+      ['fac', 'api/api', 'bfx', 'bfx', () => {
         return this.getApiConf()
       }]
     )
