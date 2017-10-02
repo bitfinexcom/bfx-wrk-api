@@ -1,15 +1,19 @@
 'use strict'
 
 const async = require('async')
-const Base = require('./base1.js')
+const Base = require('./base.js')
 
 class WrkApi extends Base {
   init () {
     super.init()
 
     this.conf.init.facilities.push(
-      ['fac', 'grc', 'p0', 'bfx', this.getGrcConf()],
-      ['fac', 'api', 'bfx', 'bfx', this.getApiConf()]
+      ['fac', 'grc', 'p0', 'bfx', () => {
+        return this.getGrcConf()
+      }],
+      ['fac', 'api', 'bfx', 'bfx', () => {
+        return this.getApiConf()
+      }]
     )
   }
 
