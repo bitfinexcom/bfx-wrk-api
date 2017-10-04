@@ -1,5 +1,5 @@
 {
-  "name": "bfx-wrk-base",
+  "name": "bfx-wrk-api",
   "version": "0.0.1",
   "private": false,
   "description": "Bitfinex Worker",
@@ -7,11 +7,13 @@
     "name": "prdn",
     "email": "paolo@bitfinex.com"
   },
+  "main": "index.js",
   "keywords": [
     "bitfinex"
   ],
   "dependencies": {
     "async": "^2.5.0",
+    "bfx-wrk-base": "git+https://github.com/bitfinexcom/bfx-wrk-base.git",
     "lodash": "^4.17.4"
   },
   "engine": {
@@ -20,9 +22,8 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bitfinexcom/bfx-wrk-base.git"
+    "url": "git+https://github.com/bitfinexcom/bfx-wrk-api.git"
   },
-  "homepage": "https://github.com/bitfinexcom/bfx-wrk-base",
   "maintainers": [
     {
       "name": "prdn",
