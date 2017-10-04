@@ -13,7 +13,7 @@
   ],
   "dependencies": {
     "async": "^2.5.0",
-    "bfx-facs-base": "git+https://github.com/bitfinexcom/bfx-facs-api.git",
+    "bfx-facs-api": "git+https://github.com/bitfinexcom/bfx-facs-api.git",
     "bfx-wrk-base": "git+https://github.com/bitfinexcom/bfx-wrk-base.git",
     "lodash": "^4.17.4"
   },
