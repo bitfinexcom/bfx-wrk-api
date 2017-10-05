@@ -8,7 +8,7 @@ class WrkApi extends Base {
     super.init()
 
     this.setInitFacs([
-      ['fac', 'grc', 'p0', 'bfx', () => {
+      ['fac', 'bfx-facs-grc', 'p0', 'bfx', () => {
         return this.getGrcConf()
       }],
       ['fac', 'bfx-facs-api', 'bfx', 'bfx', () => {
