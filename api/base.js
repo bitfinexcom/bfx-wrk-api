@@ -6,7 +6,11 @@ class Api {
   constructor (caller, opts = {}) {
     this.caller = caller
     this.opts = opts
+
+    this.init()
   }
+
+  init () {}
 
   _space (service, msg) {
     return {
