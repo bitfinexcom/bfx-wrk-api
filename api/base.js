@@ -28,8 +28,6 @@ class Api {
   }
 
   handle (service, msg, cb) {
-    const action = msg.action
-
     if (!this.isCtxReady()) {
       return cb(new Error('ERR_API_READY'))
     }
@@ -37,6 +35,8 @@ class Api {
     if (!this.ctx) {
       this.ctx = this.caller.getCtx()
     }
+
+    const action = msg.action
 
     if (!action || _.startsWith(action, '_') || !this[action]) {
       return cb(new Error('ERR_API_ACTION_NOTFOUND'))
