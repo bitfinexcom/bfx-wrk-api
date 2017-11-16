@@ -20,7 +20,7 @@ class Api {
   }
 
   isCtxReady () {
-    return true
+    return !!this.ctx
   }
 
   clearCtx () {
@@ -28,12 +28,12 @@ class Api {
   }
 
   handle (service, msg, cb) {
-    if (!this.isCtxReady()) {
-      return cb(new Error('ERR_API_READY'))
-    }
-
     if (!this.ctx) {
       this.ctx = this.caller.getCtx()
+    }
+
+    if (!this.isCtxReady()) {
+      return cb(new Error('ERR_API_READY'))
     }
 
     const action = msg.action
