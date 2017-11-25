@@ -12,7 +12,7 @@
     "bitfinex"
   ],
   "dependencies": {
-    "async": "^2.5.0",
+    "async": "^2.6.0",
     "bfx-facs-api": "git+https://github.com/bitfinexcom/bfx-facs-api.git",
     "bfx-facs-grc": "git+https://github.com/bitfinexcom/bfx-facs-grc.git",
     "bfx-wrk-base": "git+https://github.com/bitfinexcom/bfx-wrk-base.git",
