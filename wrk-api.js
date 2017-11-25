@@ -18,29 +18,21 @@ class WrkApi extends Base {
   }
 
   getGrcConf () {
-    console.warn('[WARNING] this.getGrcConf is deprecated and gets removed soon')
-    console.warn('[WARNING] set service names in your service config')
-    console.warn('[WARNING] see https://github.com/bitfinexcom/bfx-util-net-js/pull/3 for an example')
-
     return {
       svc_port: this.ctx.apiPort || 0,
-      services: this.getServices()
+      services: this.getGrcServices()
     }
   }
 
-  getServices () {
+  getGrcServices () {
     const group = this.group
     const conf = this.conf[group]
 
-    if (conf && conf.services) {
-      return conf.services
+    if (conf && Array.isArray(conf.grcServices)) {
+      return conf.grcServices
     }
 
-    if (conf && Array.isArray(conf.services)) {
-      return conf.services
-    }
-
-    return []
+    return null
   }
 
   getApiConf () {
