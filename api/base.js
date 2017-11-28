@@ -56,8 +56,14 @@ class Api {
       cb(_.isError(err) ? new Error(`ERR_API_BASE: ${err.message}`) : err, res)
     })
 
+    const method = this[action]
+    const argCount = method.length
+    if (args.length !== argCount) {
+      return cb(new Error(`ERR_API_BASE: WRONG ARG COUNT`))
+    }
+
     try {
-      this[action].apply(this, args)
+      method.apply(this, args)
     } catch (e) {
       isExecuted = true
       console.error(e)
