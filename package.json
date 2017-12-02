@@ -1,0 +1,35 @@
+{
+  "name": "bfx-wrk-api",
+  "version": "0.0.1",
+  "private": false,
+  "description": "Bitfinex Worker",
+  "author": {
+    "name": "prdn",
+    "email": "paolo@bitfinex.com"
+  },
+  "main": "index.js",
+  "keywords": [
+    "bitfinex"
+  ],
+  "dependencies": {
+    "async": "^2.6.0",
+    "bfx-facs-api": "git+https://github.com/bitfinexcom/bfx-facs-api.git",
+    "bfx-facs-grc": "git+https://github.com/bitfinexcom/bfx-facs-grc.git",
+    "bfx-wrk-base": "git+https://github.com/bitfinexcom/bfx-wrk-base.git",
+    "lodash": "^4.17.4"
+  },
+  "engine": {
+    "node": ">=8.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bitfinexcom/bfx-wrk-api.git"
+  },
+  "maintainers": [
+    {
+      "name": "prdn",
+      "email": "paolo@bitfinex.com"
+    }
+  ]
+}
