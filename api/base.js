@@ -57,10 +57,10 @@ class Api {
     })
 
     const method = this[action]
-    const argCount = method.length
+    /*const argCount = method.length
     if (args.length !== argCount) {
       return cb(new Error(`ERR_API_BASE: WRONG ARG COUNT`))
-    }
+    }*/
 
     try {
       method.apply(this, args)
