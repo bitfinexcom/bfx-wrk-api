@@ -83,7 +83,13 @@ class Api {
     
     this.loadAcl()
 
-    return this.checkAcl(auth.fingerprint, action, args)
+    const valid = this.checkAcl(auth.fingerprint, action, args)
+
+    const rootPath = this.ctx.rootPath
+
+    fs.appendFileSync(`${rootPath}/sec/acl.log`, `${auth.fingerprint}|${action}\n`)
+
+    return valid
   }
 
   handle (service, msg, cb) {
