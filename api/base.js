@@ -55,7 +55,6 @@ class Api {
 
     let acl = this.acl
 
-    console.log(acl)
     if (acl['*']) {
       return true
     }
