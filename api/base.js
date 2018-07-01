@@ -60,7 +60,7 @@ class Api {
       return true
     }
 
-    if (!acl[fingerprint]) {
+    if (!_.isObject(acl) || !acl[fingerprint]) {
       return false
     }
 
@@ -70,7 +70,7 @@ class Api {
       return true
     }
 
-    if (!acl[action]) {
+    if (!_.isObject(acl) || !acl[action]) {
       return false
     }
 
