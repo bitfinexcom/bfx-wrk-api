@@ -70,7 +70,7 @@ class Api {
     return true
   }
 
-  auth (auth, action, action, args) {
+  auth (auth, action, args) {
     if (!auth) {
       return false 
     }
