@@ -50,6 +50,8 @@ class WrkApi extends Base {
         break
     }
 
+    ctx.rootPath = this.ctx.root
+
     return ctx
   }
 

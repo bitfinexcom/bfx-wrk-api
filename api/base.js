@@ -27,11 +27,64 @@ class Api {
     this.ctx = null
   }
 
+  loadAcl () {
+    if (this.acl) {
+      return
+    }
+
+    const rootPath = this.ctx.rootPath
+
+    let acl = null
+    try {
+      acl = JSON.parse(fs.readFileSync(`${rootPath}/sec/acl.json`))
+    } catch (err) {}
+
+    this.acl = acl
+  }
+
+  checkAcl (fingerprint, action, args) {
+    if (this.acl) {
+      return false
+    }
+
+    let acl = this.acl
+
+    if (acl['*']) {
+      return true
+    }
+
+    if (!acl[fingerprint]) {
+      return false
+    }
+
+    acl = acl[fingerprint]
+
+    if (acl['*']) {
+      return true
+    }
+
+    if (!acl[action]) {
+      return false
+    }
+
+    return true
+  }
+
+  auth (auth, action, action, args) {
+    if (!auth) {
+      return false 
+    }
+    
+    this.loadAcl()
+
+    return this.checkAcl(auth.fingerprint, action, args)
+  }
+
   handle (service, msg, cb) {
     if (!this.ctx) {
       this.ctx = this.caller.getCtx()
     }
-
+   
     if (!this.isCtxReady()) {
       return cb(new Error('ERR_API_READY'))
     }
@@ -49,18 +102,20 @@ class Api {
     let isExecuted = false
 
     let args = _.isArray(msg.args) ? msg.args : []
+
+    if (msg._isSecure && !this.auth(msg._auth, action, args)) {
+      return cb(new Error('ERR_API_AUTH'))
+    }
+
     args.unshift(this._space(service, msg))
     args = args.concat((err, res) => {
-      if (isExecuted) return
-      // if (err) console.error(err, service, msg)
+      if (isExecuted) {
+        return
+      }
       cb(_.isError(err) ? new Error(`ERR_API_BASE: ${err.message}`) : err, res)
     })
 
     const method = this[action]
-    /*const argCount = method.length
-    if (args.length !== argCount) {
-      return cb(new Error(`ERR_API_BASE: WRONG ARG COUNT`))
-    }*/
 
     try {
       method.apply(this, args)
