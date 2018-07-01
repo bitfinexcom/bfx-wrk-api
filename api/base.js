@@ -37,6 +37,9 @@ class Api {
     let acl = null
     try {
       acl = JSON.parse(fs.readFileSync(`${rootPath}/sec/acl.json`))
+      if (!_.isObject(acl)) {
+        acl = null
+      }
     } catch (err) {}
 
     this.acl = acl
