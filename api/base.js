@@ -1,5 +1,6 @@
 'use strict'
 
+const fs = require('fs')
 const _ = require('lodash')
 
 class Api {
@@ -40,18 +41,21 @@ class Api {
       if (!_.isObject(acl)) {
         acl = null
       }
-    } catch (err) {}
+    } catch (err) {
+      console.error(err)
+    }
 
     this.acl = acl
   }
 
   checkAcl (fingerprint, action, args) {
-    if (this.acl) {
+    if (!this.acl) {
       return false
     }
 
     let acl = this.acl
 
+    console.log(acl)
     if (acl['*']) {
       return true
     }
