@@ -78,9 +78,9 @@ class Api {
 
   auth (auth, action, args) {
     if (!auth) {
-      return false 
+      return false
     }
-    
+
     this.loadAcl()
 
     const valid = this.checkAcl(auth.fingerprint, action, args)
@@ -96,7 +96,7 @@ class Api {
     if (!this.ctx) {
       this.ctx = this.caller.getCtx()
     }
-   
+
     if (!this.isCtxReady()) {
       return cb(new Error('ERR_API_READY'))
     }
