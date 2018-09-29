@@ -2,6 +2,7 @@
 
 const async = require('async')
 const Base = require('bfx-wrk-base')
+const path = require('path')
 
 class WrkApi extends Base {
   init () {
@@ -36,8 +37,14 @@ class WrkApi extends Base {
   }
 
   getApiConf () {
+    const wrk = path.basename(this.ctx.worker, '.js')
+    const tmp = wrk.split('.')
+    tmp.pop()
+    tmp.shift()
+
+    const inferred = tmp.join('.')
     return {
-      path: null
+      path: inferred
     }
   }
 
