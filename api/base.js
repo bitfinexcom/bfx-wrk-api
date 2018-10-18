@@ -92,6 +92,39 @@ class Api {
     return valid
   }
 
+  getStreamHandler (action) {
+    if (!action) return false
+
+    if (!action || _.startsWith(action, '_') || !this[action]) {
+      return false
+    }
+
+    if (!_.endsWith(action, 'Stream')) {
+      return false
+    }
+
+    return action
+  }
+
+  handleStream (service, action, req, res, meta, cb) {
+    if (!this.ctx) {
+      this.ctx = this.caller.getCtx()
+    }
+
+    const { args, _isSecure, _auth } = meta
+    if (!this.isCtxReady()) {
+      return cb(new Error('ERR_API_READY'))
+    }
+
+    if (_isSecure && !this.auth(_auth, action, args)) {
+      return cb(new Error('ERR_API_AUTH'))
+    }
+
+    const space = this._space(service, null)
+    const method = this[action]
+    method.call(this, space, req, res, meta, cb)
+  }
+
   handle (service, msg, cb) {
     if (!this.ctx) {
       this.ctx = this.caller.getCtx()
@@ -102,7 +135,6 @@ class Api {
     }
 
     const action = msg.action
-
     if (!action || _.startsWith(action, '_') || !this[action]) {
       return cb(new Error('ERR_API_ACTION_NOTFOUND'))
     }
