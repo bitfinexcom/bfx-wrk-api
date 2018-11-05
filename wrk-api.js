@@ -11,7 +11,7 @@ class WrkApi extends Base {
     this.setInitFacs([
       ['fac', 'bfx-facs-grc', 'p0', 'bfx', () => {
         return this.getGrcConf()
-      }],
+      }, 2],
       ['fac', 'bfx-facs-api', 'bfx', 'bfx', () => {
         return this.getApiConf()
       }]
