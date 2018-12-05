@@ -157,12 +157,20 @@ class Api {
         return
       }
       cb(_.isError(err) ? new Error(`ERR_API_BASE: ${err.message}`) : err, res)
+
+      isExecuted = true
     })
 
     const method = this[action]
 
     try {
-      method.apply(this, args)
+      const promise = method.apply(this, args)
+
+      if (promise instanceof Promise) {
+        promise
+          .then(res => args[args.length - 1](null, res))
+          .catch(err => args[args.length - 1](err))
+      }
     } catch (e) {
       isExecuted = true
       console.error(e)
