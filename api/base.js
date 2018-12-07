@@ -135,7 +135,9 @@ class Api {
     }
 
     const action = msg.action
-    if (!action || _.startsWith(action, '_') || !this[action]) {
+    const isTestEnv = this.ctx.grc_bfx.ctx.env === 'test'
+    const isPrivateMethod = _.startsWith(action, '_')
+    if (!action || (isPrivateMethod && !isTestEnv) || !this[action]) {
       return cb(new Error('ERR_API_ACTION_NOTFOUND'))
     }
 
@@ -163,13 +165,26 @@ class Api {
 
     const method = this[action]
 
-    try {
-      const promise = method.apply(this, args)
-
+    let handlePromise = (args, promise) => {
       if (promise instanceof Promise) {
         promise
           .then(res => args[args.length - 1](null, res))
           .catch(err => args[args.length - 1](err))
+        return true
+      }
+      return false
+    }
+
+    try {
+      if (isTestEnv && isPrivateMethod) {
+        args.shift()
+        const response = method.apply(this, args)
+        if (!handlePromise(args, response)) {
+          args[args.length - 1](null, response)
+        }
+      } else {
+        const promise = method.apply(this, args)
+        handlePromise(args, promise)
       }
     } catch (e) {
       isExecuted = true
