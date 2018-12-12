@@ -152,10 +152,14 @@ class Api {
     }
 
     args.unshift(this._space(service, msg))
+
     args = args.concat((err, res) => {
       if (isExecuted) {
+        console.error('[CRITICAL] callback called twice')
         return
       }
+
+      isExecuted = true
       cb(_.isError(err) ? new Error(`ERR_API_BASE: ${err.message}`) : err, res)
     })
 
