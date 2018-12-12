@@ -164,9 +164,25 @@ class Api {
     })
 
     const method = this[action]
-
     try {
-      method.apply(this, args)
+      const isPurePromiseHandler = /^aPrm/.test(action)
+      if (!isPurePromiseHandler) {
+        method.apply(this, args)
+        return
+      }
+
+      const cb = args.pop()
+
+      const promise = method.apply(this, args)
+      if (promise instanceof Promise) {
+        promise
+          .then((res) => {
+            cb(null, res)
+          })
+          .catch((err) => {
+            cb(err)
+          })
+      }
     } catch (e) {
       isExecuted = true
       console.error(e)
