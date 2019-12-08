@@ -124,7 +124,7 @@ class Api {
       if (isExecuted) {
         return
       }
-      cb(_.isError(err) ? new Error(`ERR_API_BASE: ${err.message}`) : err, res)
+      cb(_.isError(err) ? new Error(err.message || 'ERR_API_BASE') : err, res)
     })
 
     const method = this[action]
