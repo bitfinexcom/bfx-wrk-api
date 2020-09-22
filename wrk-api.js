@@ -63,7 +63,7 @@ class WrkApi extends Base {
   }
 
   _start (cb) {
-    async.series([ next => { super._start(next) },
+    async.series([next => { super._start(next) },
       next => {
         if (this.api_bfx) {
           this.grc_bfx.set('api', this.api_bfx.api)
