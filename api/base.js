@@ -134,7 +134,7 @@ class Api {
       return cb(new Error('ERR_API_READY'))
     }
 
-    const action = _.isObject(msg) && _.isString(msg.action) ? msg.action : null
+    const { action } = msg || {}
     if (!action || _.startsWith(action, '_') || !this[action]) {
       return cb(new Error('ERR_API_ACTION_NOTFOUND'))
     }
