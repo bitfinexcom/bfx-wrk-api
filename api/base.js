@@ -15,7 +15,7 @@ class Api {
 
   _space (service, msg) {
     return {
-      service: service,
+      service,
       svp: service.split(':')
     }
   }
@@ -134,7 +134,7 @@ class Api {
       return cb(new Error('ERR_API_READY'))
     }
 
-    const action = msg.action
+    const { action } = msg || {}
     if (!action || _.startsWith(action, '_') || !this[action]) {
       return cb(new Error('ERR_API_ACTION_NOTFOUND'))
     }
