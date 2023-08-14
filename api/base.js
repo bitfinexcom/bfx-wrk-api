@@ -15,7 +15,7 @@ class Api {
 
   _space (service, msg) {
     return {
-      service: service,
+      service,
       svp: service.split(':')
     }
   }

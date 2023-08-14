@@ -1,5 +1,7 @@
 'use strict'
 
+/* eslint-env mocha */
+
 const { Api } = require('..')
 const _ = require('lodash')
 const assert = require('assert')
