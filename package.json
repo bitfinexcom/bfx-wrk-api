@@ -1,6 +1,6 @@
 {
-  "name": "bfx-wrk-api",
-  "version": "0.0.1",
+  "name": "@bitfinex/bfx-wrk-api",
+  "version": "1.0.0",
   "private": false,
   "description": "Bitfinex Worker",
   "author": {
@@ -17,14 +17,14 @@
     "bitfinex"
   ],
   "dependencies": {
+    "@bitfinex/bfx-facs-api": "git+https://github.com/bitfinexcom/bfx-facs-api.git",
+    "@bitfinex/bfx-facs-grc": "git+https://github.com/bitfinexcom/bfx-facs-grc.git",
+    "@bitfinex/bfx-wrk-base": "git+https://github.com/bitfinexcom/bfx-wrk-base.git",
     "async": "^3.2.4",
-    "bfx-facs-api": "git+https://github.com/bitfinexcom/bfx-facs-api.git",
-    "bfx-facs-grc": "git+https://github.com/bitfinexcom/bfx-facs-grc.git",
-    "bfx-wrk-base": "git+https://github.com/bitfinexcom/bfx-wrk-base.git",
     "lodash": "^4.17.21"
   },
-  "engine": {
-    "node": ">=8.0"
+  "engines": {
+    "node": ">=16.0"
   },
   "license": "Apache-2.0",
   "repository": {
