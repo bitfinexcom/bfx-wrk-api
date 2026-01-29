@@ -1,7 +1,7 @@
 'use strict'
 
 const async = require('async')
-const Base = require('bfx-wrk-base')
+const Base = require('@bitfinex/bfx-wrk-base')
 const path = require('path')
 
 class WrkApi extends Base {
