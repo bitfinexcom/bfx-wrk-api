@@ -9,10 +9,10 @@ class WrkApi extends Base {
     super.init()
 
     this.setInitFacs([
-      ['fac', 'bfx-facs-grc', 'p0', 'bfx', () => {
+      ['fac', '@bitfinex/bfx-facs-grc', 'p0', 'bfx', () => {
         return this.getGrcConf()
       }, 2],
-      ['fac', 'bfx-facs-api', 'bfx', 'bfx', () => {
+      ['fac', '@bitfinex/bfx-facs-api', 'bfx', 'bfx', () => {
         return this.getApiConf()
       }]
     ])
