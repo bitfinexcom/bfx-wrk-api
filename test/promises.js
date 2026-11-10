@@ -1,10 +1,7 @@
 'use strict'
 
-/* eslint-env mocha */
-
 const { Api } = require('..')
-const _ = require('lodash')
-const assert = require('assert')
+const test = require('brittle')
 
 class ServiceApi extends Api {
   asyncCb (space, ip, cb) {
@@ -20,42 +17,46 @@ class ServiceApi extends Api {
 }
 
 let api
-describe('callback handling', () => {
-  beforeEach(function () {
-    api = new ServiceApi()
-    api.caller = { getCtx: () => { return true } }
+const setup = () => {
+  api = new ServiceApi()
+  api.caller = { getCtx: () => { return true } }
+}
+
+test('handles callbacks', (t) => {
+  t.plan(1)
+  setup()
+
+  api.handle('test', {
+    action: 'asyncCb',
+    args: ['53.1.34.21']
+  }, (err, res) => {
+    if (err) throw err
+
+    t.is(res, '53.1.34.21')
   })
+})
 
-  it('handles callbacks', (done) => {
-    api.handle('test', {
-      action: 'asyncCb',
-      args: ['53.1.34.21']
-    }, (err, res) => {
-      if (err) throw err
+test('errors if callback called twice', (t) => {
+  t.plan(1)
+  setup()
 
-      assert.strictEqual(res, '53.1.34.21')
-      done()
-    })
+  api.handle('test', {
+    action: 'twoCallbacks',
+    args: ['53.1.34.21']
+  }, (err, res) => {
+    if (err) throw err
+
+    t.is(res, '53.1.34.21')
   })
+})
 
-  it('errors if callback called twice', (done) => {
-    api.handle('test', {
-      action: 'twoCallbacks',
-      args: ['53.1.34.21']
-    }, (err, res) => {
-      if (err) throw err
+test('it should handle empty msg', (t) => {
+  t.plan(3)
+  setup()
 
-      assert.strictEqual(res, '53.1.34.21')
-      done()
-    })
-  })
-
-  it('it should handle empty msg', (done) => {
-    api.handle('test', null, (err, res) => {
-      assert.strictEqual(_.isNil(res), true)
-      assert.strictEqual(err instanceof Error, true)
-      assert.strictEqual(err.message, 'ERR_API_ACTION_NOTFOUND')
-      done()
-    })
+  api.handle('test', null, (err, res) => {
+    t.is(res === null || res === undefined, true)
+    t.is(err instanceof Error, true)
+    t.is(err.message, 'ERR_API_ACTION_NOTFOUND')
   })
 })
